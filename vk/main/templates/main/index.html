@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+{% load socialaccount %}
+{% if user.is_authenticated %}
+<div class="alert alert-dark" role="alert">
+    Уже авторизован, перенаправляю в профиль.
+</div>
+<meta http-equiv="refresh" content="2.5;http://127.0.0.1:8000/accounts/profile/">
+{% else %}
+{% if user.is_anonymous %}
+
+<div class="alert alert-dark" role="alert">
+    Для показа ваших друзей необходимо авторизоваться.
+</div>
+<form action="{% provider_login_url 'vk' %}">
+    <button class="btn btn-outline-dark" type="submit">Авторизация ВК</button>
+</form>
+{% endif%}
+{% endif%}
+{% endblock %}
