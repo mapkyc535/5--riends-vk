@@ -22,16 +22,11 @@ def profile(request):
                 offset = randint(0, 9)
                 r = requests.get("https://api.vk.com/method/friends.get",
                                  params={'user_id': user_id, "v": 5.122, 'count': 5, "offset": offset,
-                                         "access_token": TOKEN})
+                                         "access_token": TOKEN, 'fields': "photo_200_orig,domain"})
                 response = r.json()
 
                 friends_resp = response['response']['items']
-                friends_list = []
-
-                for friend in friends_resp:
-                    friends_list.append(f'https://vk.com/id{friend}')
-
-                return friends_list
+                return friends_resp
 
             friends = get_friend()
 
@@ -39,7 +34,9 @@ def profile(request):
                 'first_name': first_name,
                 'last_name': last_name,
                 'friends': friends,
+
             }
+
             return render(request, 'main/profile.html', context)
         except:
             pass
