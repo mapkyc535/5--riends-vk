@@ -22,7 +22,7 @@ def profile(request):
                 offset = randint(0, 9)
                 r = requests.get("https://api.vk.com/method/friends.get",
                                  params={'user_id': user_id, "v": 5.122, 'count': 5, "offset": offset,
-                                         "access_token": TOKEN, 'fields': "photo_200_orig,domain"})
+                                         "access_token": TOKEN, 'fields': "photo_200,domain"})
                 response = r.json()
 
                 friends_resp = response['response']['items']
